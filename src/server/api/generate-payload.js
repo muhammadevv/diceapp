@@ -1,4 +1,3 @@
-import { HttpResponseResolver } from "msw";
 import { TonProofService } from "../services/ton-proof-service";
 import { badRequest, ok } from "../utils/http-utils";
 import { createPayloadToken } from "../utils/jwt";

@@ -8,7 +8,7 @@ const { tryParsePublicKey } = require('../wrappers/wallets-data.js');
 const tonProofPrefix = 'ton-proof-item-v2/';
 const tonConnectPrefix = 'ton-connect';
 const allowedDomains = [
-  'ton-connect.github.io',
+  'diceapp-three.vercel.app',
   'localhost:5173'
 ];
 const validAuthTime = 15 * 60; // 15 minutes

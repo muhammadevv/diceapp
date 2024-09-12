@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "./HomePage.css";
-
 import { TonConnect } from "@tonconnect/sdk";
 import { TonConnectButton, useTonAddress, useTonWallet } from "@tonconnect/ui-react";
 import { useNavigate } from "react-router-dom";
+import "./HomePage.css";
 
 
 
@@ -29,15 +28,15 @@ const HomePage = () => {
   const navigate = useNavigate();
   const tonAddress = useTonAddress();
 
-  useEffect(() => {
-    if (tonAddress) {
-      if (location.search) {
-        navigate(location.search.substring(1));
-      } else {
-        navigate("/");
-      }
-    }
-  })
+  // useEffect(() => {
+  //   if (tonAddress) {
+  //     if (location.search) {
+  //       navigate(location.search.substring(1));
+  //     } else {
+  //       navigate("/");
+  //     }
+  //   }
+  // })
 
 
   // useEffect(() => {
@@ -219,7 +218,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className={walletList ? "wallet-list" : "down"}>
+        {/* <div className={walletList ? "wallet-list" : "down"}>
           {
             userFriendlyAddress && (
               <div>
@@ -237,7 +236,7 @@ const HomePage = () => {
               </div>
             )
           }
-        </div>
+        </div> */}
 
       </div>
     </div>

@@ -1,4 +1,3 @@
-import { HttpResponseResolver } from "msw";
 import { ok } from "../utils/http-utils";
 
 export const healthz = async () => {

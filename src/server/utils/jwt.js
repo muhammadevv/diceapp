@@ -1,4 +1,3 @@
-import { CHAIN } from "@tonconnect/ui-react";
 import { decodeJwt, jwtVerify, SignJWT } from 'jose';
 
 /**
