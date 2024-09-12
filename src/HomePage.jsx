@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./HomePage.css";
-import { tonConnect } from "./tonConnect";
 
 import { TonConnect } from "@tonconnect/sdk";
-import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
+import { TonConnectButton, useTonAddress, useTonWallet } from "@tonconnect/ui-react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -12,9 +11,15 @@ const HomePage = () => {
   const [walletPopup, setWalletPopup] = useState(false);
   const [wallets, setWallets] = useState([]);
   const [walletList, setWalletList] = useState(false);
-  const [wallet, setWallet] = useState(null);
+  // const [wallet, setWallet] = useState(null);
   const [error, setError] = useState(null);
   const connector = new TonConnect();
+
+
+  const wallet = useTonWallet();
+
+  const userFriendlyAddress = useTonAddress();
+  const rawAddress = useTonAddress(false);
 
   const doubleCloser = () => {
     setWalletList(false);
@@ -210,55 +215,30 @@ const HomePage = () => {
 
             <TonConnectButton />
 
-            {/* <button
-              className="connect-button"
-              onClick={() => setWalletList(!walletList)}
-            >
-              CONNECT
-            </button> */}
+
           </div>
         </div>
 
         <div className={walletList ? "wallet-list" : "down"}>
-          {/* <button
-            onClick={() => setWalletList(!walletList)}
-            className="wallet-list-closer"
-          >
-            <img src="double-down.svg" alt="" />
-          </button> */}
-          {/* <h1>Выберите кошелек для подключения</h1> */}
-          {/* <ul className="wallet-list-content">
-            <button onClick={() => connectWallet(wallet)}>TON wallet</button>
+          {
+            userFriendlyAddress && (
+              <div>
+                <span>User-friendly address: {userFriendlyAddress}</span>
+                <span>Raw address: {rawAddress}</span>
+              </div>
+            )}
 
-            <a href="https://t.me/wallet"> connect</a> */}
-            
-            {/* <div>
-              {!wallet ? (
-                <button onClick={connectWallet}>Connect Wallet</button>
-              ) : (
-                <div>
-                  <p>Wallet connected: {wallet.account.address}</p>
-                </div>
-              )}
-              {error && <p style={{ color: 'red' }}>{error}</p>}
-            </div> */}
 
-            {/* {wallets.map((wallet) => (
-              <li className="wallet-list-li" key={wallet.appName}>
-                <img
-                  src={wallet.imageUrl}
-                  alt={wallet.name}
-                  width="50"
-                  height={"50"}
-                />
-                <button onClick={() => connectWallet(wallet)}>
-                  {wallet.name}
-                </button>
-              </li>
-            ))} */}
-          {/* </ul> */}
+          {
+            wallet && (
+              <div>
+                <span>Connected wallet: {wallet.name}</span>
+                <span>Device: {wallet.device.appName}</span>
+              </div>
+            )
+          }
         </div>
-        
+
       </div>
     </div>
   );

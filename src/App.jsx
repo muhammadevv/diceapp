@@ -5,7 +5,7 @@ import HomePage from "./HomePage";
 import * as TonConnectUI from '@tonconnect/ui';
 
 const App = () => {
-  
+
 
   return (
     <Routes>
