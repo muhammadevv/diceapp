@@ -3,6 +3,7 @@ import "./HomePage.css";
 import { tonConnect } from "./tonConnect";
 
 import { TonConnect } from "@tonconnect/sdk";
+import { TonConnectButton } from "@tonconnect/ui-react";
 
 
 
@@ -194,12 +195,14 @@ const HomePage = () => {
               <img className="ton-wallet" src="ton_blue.png" alt="" />
             </div>
 
-            <button
+            <TonConnectButton />
+
+            {/* <button
               className="connect-button"
               onClick={() => setWalletList(!walletList)}
             >
               CONNECT
-            </button>
+            </button> */}
           </div>
         </div>
         <div className={walletList ? "wallet-list" : "down"}>
