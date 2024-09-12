@@ -4,6 +4,8 @@ import { tonConnect } from "./tonConnect";
 
 import { TonConnect } from "@tonconnect/sdk";
 
+
+
 const HomePage = () => {
   const [walletPopup, setWalletPopup] = useState(false);
   const [wallets, setWallets] = useState([]);
@@ -17,7 +19,7 @@ const HomePage = () => {
     setWalletPopup(false);
   };
 
-  console.log(wallet);
+  console.log(tonConnect);
 
   useEffect(() => {
     // Получаем список доступных кошельков и сохраняем в состоянии
@@ -211,6 +213,7 @@ const HomePage = () => {
           <ul className="wallet-list-content">
             {/* <button onClick={() => connectWallet(wallet)}>TON wallet</button> */}
 
+            <a href="https://t.me/wallet"> connect</a>
             <div>
               {!wallet ? (
                 <button onClick={connectWallet}>Connect Wallet</button>
