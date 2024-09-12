@@ -3,7 +3,7 @@ import Loading from "./Loading";
 import HomePage from "./HomePage";
 import * as TonConnectUI from '@tonconnect/ui';
 import React, { useState, useEffect } from 'react';
-import TonConnect from '@tonconnect/sdk';
+import { TonConnect } from '@tonconnect/sdk';
 
 const App = () => {
   const [tonConnect, setTonConnect] = useState(null);
@@ -13,20 +13,36 @@ const App = () => {
 
   useEffect(() => {
     const initTonConnect = async () => {
-      const tonConnectInstance = new TonConnect();
-      setTonConnect(tonConnectInstance);
+      try {
+        const tonConnectInstance = new TonConnect();
+        setTonConnect(tonConnectInstance);
 
-      // Walletlarni olish
-      const availableWallets = await tonConnectInstance.getWallets();
-      setWallets(availableWallets);
+        // Walletlarni olish
+        const availableWallets = await tonConnectInstance.getWallets();
+        setWallets(availableWallets);
+
+        console.log('Mavjud walletlar:', availableWallets);
+      } catch (error) {
+        console.error('Walletlarni yuklashda xatolik:', error);
+      }
     };
 
     initTonConnect();
   }, []);
 
+
+  console.log(tonConnect);
+
   const connectWallet = async (wallet) => {
     try {
-      await tonConnect.connect({ jsBridgeKey: wallet.jsBridgeKey }); // connect funksiyasi ishlatiladi
+      if (wallet.embedded) {
+        // Wallet ilovaga injekt qilingan (brauzer kengaytmasi kabi walletlar uchun)
+        await tonConnect.connect({ jsBridgeKey: wallet.jsBridgeKey });
+      } else {
+        // Wallet injekt qilinmagan bo'lsa, universal link yoki deep link orqali wallet'ga ulanish
+        const universalLink = wallet.universalLink || wallet.deepLink;
+        window.open(universalLink, '_blank'); // Foydalanuvchini wallet ilovasiga yo'naltirish
+      }
       setConnectedWallet(wallet);
       console.log('Ulangan wallet:', wallet);
     } catch (error) {
