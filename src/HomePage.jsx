@@ -1,32 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { TonConnect } from "@tonconnect/sdk";
-import { TonConnectButton, useTonAddress, useTonWallet } from "@tonconnect/ui-react";
-import { useNavigate } from "react-router-dom";
+import { TonConnectButton } from "@tonconnect/ui-react";
 import "./HomePage.css";
 
 
 
 const HomePage = () => {
   const [walletPopup, setWalletPopup] = useState(false);
-  const [wallets, setWallets] = useState([]);
-  const [walletList, setWalletList] = useState(false);
-  // const [wallet, setWallet] = useState(null);
-  const [error, setError] = useState(null);
-  const connector = new TonConnect();
-
-
-  const wallet = useTonWallet();
-
-  const userFriendlyAddress = useTonAddress();
-  const rawAddress = useTonAddress(false);
 
   const doubleCloser = () => {
     setWalletList(false);
     setWalletPopup(false);
   };
 
-  const navigate = useNavigate();
-  const tonAddress = useTonAddress();
 
   // useEffect(() => {
   //   if (tonAddress) {

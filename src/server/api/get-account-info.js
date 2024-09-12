@@ -1,4 +1,3 @@
-import { HttpResponseResolver } from "msw";
 import { TonApiService } from "../services/ton-api-service";
 import { badRequest, ok, unauthorized } from "../utils/http-utils";
 import { decodeAuthToken, verifyToken } from "../utils/jwt";

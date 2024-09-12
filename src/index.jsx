@@ -49,8 +49,6 @@ async function enableMocking() {
 
 ReactDOM.createRoot(document.querySelector('#root')).render(
   <BrowserRouter>
-    <TonConnectUIProvider manifestUrl="https://dice-paradise.vercel.app/assets/tonconnect-manifest.json">
       <App />
-    </TonConnectUIProvider>
   </BrowserRouter>
 )

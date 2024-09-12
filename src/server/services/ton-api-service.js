@@ -2,19 +2,21 @@ import { Address, TonClient4 } from "@ton/ton";
 import { CHAIN } from "@tonconnect/ui-react";
 import { Buffer } from "buffer";
 
-export class TonApiService {
-
+class TonApiService {
   static create(client) {
+    // Set the client to the appropriate network
     if (client === CHAIN.MAINNET) {
       client = new TonClient4({
-        endpoint: 'https://mainnet-v4.tonhubapi.com'
+        endpoint: 'https://mainnet-v4.tonhubapi.com',
       });
     }
+
     if (client === CHAIN.TESTNET) {
       client = new TonClient4({
-        endpoint: 'https://testnet-v4.tonhubapi.com'
+        endpoint: 'https://testnet-v4.tonhubapi.com',
       });
     }
+
     return new TonApiService(client);
   }
 
@@ -28,7 +30,12 @@ export class TonApiService {
   async getWalletPublicKey(address) {
     const masterAt = await this.client.getLastBlock();
     const result = await this.client.runMethod(
-      masterAt.last.seqno, Address.parse(address), 'get_public_key', []);
+      masterAt.last.seqno,
+      Address.parse(address),
+      console.log(address),
+      'get_public_key',
+      []
+    );
     return Buffer.from(result.reader.readBigNumber().toString(16).padStart(64, '0'), 'hex');
   }
 
@@ -40,3 +47,5 @@ export class TonApiService {
     return await this.client.getAccount(masterAt.last.seqno, Address.parse(address));
   }
 }
+
+export default TonApiService;
