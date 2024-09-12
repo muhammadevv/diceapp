@@ -3,7 +3,7 @@ import { decodeJwt, jwtVerify, SignJWT } from 'jose';
 /**
  * Secret key for the token.
  */
-const JWT_SECRET_KEY = 'your_secret_key';
+const JWT_SECRET_KEY = 'hvwrPsoKBk1oEBOtoNqbofqTy8q7lPWjHF59R3dIiXt1EWLHYai9Q1JdS6/VjHkRudWlfYXUXRj1ZpnteLYa5Q==';
 
 /**
  * Create a token with the given payload.
