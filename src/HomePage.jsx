@@ -3,7 +3,8 @@ import "./HomePage.css";
 import { tonConnect } from "./tonConnect";
 
 import { TonConnect } from "@tonconnect/sdk";
-import { TonConnectButton } from "@tonconnect/ui-react";
+import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -20,26 +21,38 @@ const HomePage = () => {
     setWalletPopup(false);
   };
 
-  console.log(tonConnect);
+  const navigate = useNavigate();
+  const tonAddress = useTonAddress();
 
   useEffect(() => {
-    // Получаем список доступных кошельков и сохраняем в состоянии
-    tonConnect.getWallets().then((availableWallets) => {
-      setWallets(availableWallets);
-    });
-  }, []);
-
-  const connectWallet = async () => {
-    try {
-      await connector.connect();
-      const walletInfo = connector.wallet;
-      setWallet(walletInfo);
-      console.log("Wallet connected:", walletInfo);
-    } catch (error) {
-      setError("Connection failed. Please try again.");
-      console.error("Connection failed:", error);
+    if (tonAddress) {
+      if (location.search) {
+        navigate(location.search.substring(1));
+      } else {
+        navigate("/");
+      }
     }
-  };
+  })
+
+
+  // useEffect(() => {
+  //   // Получаем список доступных кошельков и сохраняем в состоянии
+  //   tonConnect.getWallets().then((availableWallets) => {
+  //     setWallets(availableWallets);
+  //   });
+  // }, []);
+
+  // const connectWallet = async () => {
+  //   try {
+  //     await connector.connect();
+  //     const walletInfo = connector.wallet;
+  //     setWallet(walletInfo);
+  //     console.log("Wallet connected:", walletInfo);
+  //   } catch (error) {
+  //     setError("Connection failed. Please try again.");
+  //     console.error("Connection failed:", error);
+  //   }
+  // };
 
   // const connectWallet = async () => {
   //   // console.log(wallet);
@@ -205,29 +218,30 @@ const HomePage = () => {
             </button> */}
           </div>
         </div>
+
         <div className={walletList ? "wallet-list" : "down"}>
-          <button
+          {/* <button
             onClick={() => setWalletList(!walletList)}
             className="wallet-list-closer"
           >
             <img src="double-down.svg" alt="" />
-          </button>
-          <h1>Выберите кошелек для подключения</h1>
-          <ul className="wallet-list-content">
-            {/* <button onClick={() => connectWallet(wallet)}>TON wallet</button> */}
+          </button> */}
+          {/* <h1>Выберите кошелек для подключения</h1> */}
+          {/* <ul className="wallet-list-content">
+            <button onClick={() => connectWallet(wallet)}>TON wallet</button>
 
-            <a href="https://t.me/wallet"> connect</a>
-            <div>
+            <a href="https://t.me/wallet"> connect</a> */}
+            
+            {/* <div>
               {!wallet ? (
                 <button onClick={connectWallet}>Connect Wallet</button>
               ) : (
                 <div>
                   <p>Wallet connected: {wallet.account.address}</p>
-                  {/* Bu yerda tranzaktsiyalarni amalga oshirish yoki boshqa operatsiyalarni bajarish mumkin */}
                 </div>
               )}
               {error && <p style={{ color: 'red' }}>{error}</p>}
-            </div>
+            </div> */}
 
             {/* {wallets.map((wallet) => (
               <li className="wallet-list-li" key={wallet.appName}>
@@ -242,8 +256,9 @@ const HomePage = () => {
                 </button>
               </li>
             ))} */}
-          </ul>
+          {/* </ul> */}
         </div>
+        
       </div>
     </div>
   );
