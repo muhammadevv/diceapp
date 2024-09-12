@@ -1,17 +1,12 @@
-import {
-  Account,
-  ConnectAdditionalRequest,
-  SendTransactionRequest,
-  TonProofItemReplySuccess
-} from "@tonconnect/ui-react";
-import './patch-local-storage-for-github-pages';
+import { Account } from "@tonconnect/ui-react";
+// import './patch-local-storage-for-github-pages';
 
 class TonProofDemoApiService {
   constructor() {
     this.localStorageKey = 'demo-api-access-token';
     this.host = document.baseURI.replace(/\/$/, '');
     this.accessToken = localStorage.getItem(this.localStorageKey);
-    this.refreshIntervalMs = 9 * 60 * 1000; // 9 minutes in milliseconds
+    this.refreshIntervalMs = 9 * 60 * 1000;
 
     if (!this.accessToken) {
       this.generatePayload();
@@ -22,10 +17,9 @@ class TonProofDemoApiService {
     try {
       const response = await fetch(`${this.host}/api/generate_payload`, {
         method: 'POST',
-      });
-      const data = await response.json();
+      }).then(res => res.json());
 
-      return { tonProof: data.payload };
+      return { tonProof: response.payload };
     } catch (error) {
       console.error('Error generating payload:', error);
       return null;
@@ -50,12 +44,11 @@ class TonProofDemoApiService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(reqBody),
-      });
-      const data = await response.json();
+      }).then(res => res.json());
 
-      if (data?.token) {
-        localStorage.setItem(this.localStorageKey, data.token);
-        this.accessToken = data.token;
+      if (response && response.token) {
+        localStorage.setItem(this.localStorageKey, response.token);
+        this.accessToken = response.token;
       }
     } catch (error) {
       console.error('Error checking proof:', error);
@@ -69,10 +62,9 @@ class TonProofDemoApiService {
           Authorization: `Bearer ${this.accessToken}`,
           'Content-Type': 'application/json',
         },
-      });
-      const data = await response.json();
+      }).then(res => res.json());
 
-      return data;
+      return response;
     } catch (error) {
       console.error('Error fetching account info:', error);
       return {};
@@ -88,10 +80,9 @@ class TonProofDemoApiService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(jetton),
-      });
-      const data = await response.json();
+      }).then(res => res.json());
 
-      return data;
+      return response;
     } catch (error) {
       console.error('Error creating jetton:', error);
       throw error;

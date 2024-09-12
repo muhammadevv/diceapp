@@ -32,7 +32,7 @@ class TonApiService {
     const result = await this.client.runMethod(
       masterAt.last.seqno,
       Address.parse(address),
-      'dRFix2GovUNSXUuv1Yx5EbnVpX2F1F0Y9WaZ7Xi2GuU=',
+      '',
       []
     );
     return Buffer.from(result.reader.readBigNumber().toString(16).padStart(64, '0'), 'hex');
