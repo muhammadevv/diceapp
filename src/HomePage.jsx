@@ -5,66 +5,6 @@ import "./HomePage.css";
 
 
 const HomePage = () => {
-  const [walletPopup, setWalletPopup] = useState(false);
-
-  const doubleCloser = () => {
-    setWalletList(false);
-    setWalletPopup(false);
-  };
-
-
-  // useEffect(() => {
-  //   if (tonAddress) {
-  //     if (location.search) {
-  //       navigate(location.search.substring(1));
-  //     } else {
-  //       navigate("/");
-  //     }
-  //   }
-  // })
-
-
-  // useEffect(() => {
-  //   // Получаем список доступных кошельков и сохраняем в состоянии
-  //   tonConnect.getWallets().then((availableWallets) => {
-  //     setWallets(availableWallets);
-  //   });
-  // }, []);
-
-  // const connectWallet = async () => {
-  //   try {
-  //     await connector.connect();
-  //     const walletInfo = connector.wallet;
-  //     setWallet(walletInfo);
-  //     console.log("Wallet connected:", walletInfo);
-  //   } catch (error) {
-  //     setError("Connection failed. Please try again.");
-  //     console.error("Connection failed:", error);
-  //   }
-  // };
-
-  // const connectWallet = async () => {
-  //   // console.log(wallet);
-  //   try {
-  //     await connector.connect();
-  //     const walletInfo = connector.wallet;
-  //     setWallet(walletInfo);
-  //     console.log("Wallet connected:", walletInfo);
-  //   } catch (error) {
-  //     console.error("Connection failed:", error);
-  //   }
-  // };
-
-  // const connectWallet = async (wallet) => {
-  //   console.log(wallet);
-  //   try {
-  //     console.log(`Connecting to wallet: ${wallet.name}`);
-  //     await tonConnect.connect({ jsBridgeKey: wallet.jsBridgeKey });
-  //     console.log(`${wallet.name} подключен!`);
-  //   } catch (error) {
-  //     console.error("Ошибка при подключении кошелька:", error);
-  //   }
-  // };
 
   return (
     <div className="main-wrapper">
@@ -80,7 +20,6 @@ const HomePage = () => {
 
             <div className="user-info__profile">
               <div
-                onClick={() => setWalletPopup(true)}
                 className="user-info__balance"
               >
                 <div>
@@ -113,7 +52,7 @@ const HomePage = () => {
             </div>
           </div>
 
-          <div className={walletPopup ? "none" : "price-wrapper"}>
+          <div className={"price-wrapper"}>
             <div className="referrals-button">
               <p>Referrals</p>
             </div>
@@ -159,7 +98,7 @@ const HomePage = () => {
             </div>
           </div>
 
-          <div className={walletPopup ? "none" : "navbar"}>
+          <div className={"navbar"}>
             <div className="frame linked-button__animation-1">
               <img src="home.png" className="image-in-frame" />
             </div>
@@ -178,13 +117,12 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className={walletPopup ? "connect-wallet" : "none"}>
+        <div className={"connect-wallet"}>
           <div className="connect-wallet__title-wrapper">
             <div className="connect-wallet__title">
               <p>Your TON wallet</p>
             </div>
             <div
-              onClick={() => doubleCloser()}
               className="connect-wallet__closer"
             >
               <img src="xmark.svg" alt="" />
